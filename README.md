@@ -5,7 +5,7 @@
 # Tofu EQ
 
 **A featherweight, system-wide parametric equalizer for PipeWire.**<br>
-Like Equalizer APO, for Linux: one EQ for every app, tweaked live, gone from your RAM when you close the window.
+Like Equalizer APO, for Linux: one EQ for every app, tweaked live, with a GUI that leaves your RAM when you close the window.
 
 [![CI](https://github.com/AoTofu/tofu-eq/actions/workflows/ci.yml/badge.svg)](https://github.com/AoTofu/tofu-eq/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-7c6cff.svg)](LICENSE)
@@ -27,7 +27,7 @@ Like Equalizer APO, for Linux: one EQ for every app, tweaked live, gone from you
 ## Highlights
 
 - **Truly lightweight**: all DSP runs inside PipeWire's own `filter-chain` as plain biquads. No Python audio thread, no extra resampling, no always-on GUI. The background EQ is a ~12 MB process.
-- **Real parametric EQ**: peak, low/high shelf, low/high pass, band pass, notch and all-pass. Up to 32 bands with free frequency, gain and Q.
+- **Real parametric EQ**: peak, low/high shelf, low/high-pass, band-pass, notch and all-pass. Up to 32 bands with freely adjustable frequency, gain and Q.
 - **Zero-dropout live editing**: drag a handle and you hear it instantly. Even switching a band's filter type is glitch-free (coefficients are swapped in place).
 - **Always on, everywhere**: inserts itself in front of whatever output is your default (speakers, headphones, HDMI…) and follows you when you switch. Starts at login, no window needed.
 - **Live spectrum**: a subtle analyzer of what you actually hear (post-EQ), captured only while the window is visible.
@@ -45,7 +45,7 @@ That's it. Open **Tofu EQ** from your app menu. The installer:
 
 1. checks for PipeWire ≥ 1.0 and WirePlumber ≥ 0.5,
 2. installs PySide6 + numpy with your package manager (Fedora, Arch, Debian/Ubuntu, openSUSE), or falls back to a private venv,
-3. puts the app in `~/.local/share/tofu-eq`, adds `tofu-eq` to `~/.local/bin` and a menu entry. No root files besides the distro packages.
+3. puts the app in `~/.local/share/tofu-eq`, adds a `tofu-eq` command to `~/.local/bin` and creates a menu entry. Apart from the distro packages, nothing is installed as root.
 
 <details>
 <summary><b>Requirements</b></summary>
@@ -85,7 +85,7 @@ git clone https://github.com/AoTofu/tofu-eq && cd tofu-eq && ./install.sh
 | Bypass the EQ | **Bypass** button or <kbd>Ctrl</kbd>+<kbd>B</kbd> |
 | Avoid clipping | **Auto** next to the preamp |
 
-Closing the window doesn't stop the EQ: it keeps running in the background, also after a reboot.
+Closing the window doesn't stop the EQ: it keeps running in the background, even after a reboot.
 
 ## How it works
 
@@ -100,9 +100,9 @@ flowchart LR
 ```
 
 - The EQ is a PipeWire **filter-chain** run by the user service `tofu-eq-filter.service`. WirePlumber's **smart filter** policy places it in front of the default sink.
-- Every band is a `bq_raw` biquad. The GUI computes [RBJ cookbook](https://www.w3.org/TR/audio-eq-cookbook/) coefficients for the current sample rate and pushes them with `pw-cli set-param`. That's why edits, including type changes, never drop out.
-- The generated config also carries coefficient tables for every common sample rate (44.1 to 384 kHz), so the EQ is correct at login and across rate switches without the GUI.
-- The spectrum is a 8192-point FFT of the output device's monitor, drawn as 1/12-octave bands.
+- Every band is a `bq_raw` biquad. The GUI computes [RBJ cookbook](https://www.w3.org/TR/audio-eq-cookbook/) coefficients for the current sample rate and pushes them with `pw-cli set-param`. That's why edits, including type changes, never cause dropouts.
+- The generated config also carries coefficient tables for every common sample rate (44.1 to 384 kHz), so the EQ stays correct at login and across sample-rate changes, even without the GUI.
+- The spectrum is an 8192-point FFT of the output device's monitor, drawn as 1/12-octave bands.
 
 Files: settings and presets in `~/.config/tofu-eq/`, the service in `~/.config/systemd/user/tofu-eq-filter.service`.
 
@@ -137,7 +137,7 @@ numpy is missing. Re-run the installer, or install your distro's `python3-numpy`
 
 ## Translations
 
-UI strings live in [`tofu_eq/i18n.py`](tofu_eq/i18n.py) (English is the source text). To add a language, add a table there, and `python -m unittest` will tell you if any string is missing. Force a language with `TOFU_EQ_LANG=ja tofu-eq`.
+UI strings live in [`tofu_eq/i18n.py`](tofu_eq/i18n.py) (English is the source text). To add a language, add a table there, and `python -m unittest discover -s tests` will tell you if any string is missing. Force a language with `TOFU_EQ_LANG=ja tofu-eq`.
 
 ## License
 

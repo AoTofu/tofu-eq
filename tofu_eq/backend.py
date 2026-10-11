@@ -175,7 +175,7 @@ class Backend(QObject):
         self.node_id = None
         r = _systemctl("restart", SERVICE)
         if r.returncode != 0:
-            self.status.emit(tr("Failed to start the service: {err}", err=r.stderr.strip()))
+            self.status.emit(tr("Failed to start the EQ service: {err}", err=r.stderr.strip()))
 
     def _write_conf(self):
         if self._state is not None:

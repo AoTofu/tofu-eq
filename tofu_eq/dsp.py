@@ -7,11 +7,11 @@ LABELS = {
     "peak": "Peak",
     "lowshelf": "Low shelf",
     "highshelf": "High shelf",
-    "lowpass": "Low pass",
-    "highpass": "High pass",
-    "bandpass": "Band pass",
+    "lowpass": "Low-pass",
+    "highpass": "High-pass",
+    "bandpass": "Band-pass",
     "notch": "Notch",
-    "allpass": "All pass",
+    "allpass": "All-pass",
 }
 GAIN_TYPES = {"peak", "lowshelf", "highshelf"}
 IDENTITY = (1.0, 0.0, 0.0, 1.0, 0.0, 0.0)
