@@ -39,7 +39,7 @@ class MainWindow(QMainWindow):
         del_btn = QPushButton(tr("Delete"))
         del_btn.clicked.connect(self._delete_preset)
         reset_btn = QPushButton(tr("Flat"))
-        reset_btn.setToolTip(tr("Set every band's gain to 0 dB"))
+        reset_btn.setToolTip(tr("Reset all band gains and the preamp to 0 dB"))
         reset_btn.clicked.connect(self._flatten)
 
         self.pre_slider = QSlider(Qt.Horizontal, minimum=-300, maximum=120, minimumWidth=140)
@@ -48,7 +48,7 @@ class MainWindow(QMainWindow):
         self.pre_slider.valueChanged.connect(lambda v: self._set_preamp(v / 10.0))
         self.pre_spin.valueChanged.connect(self._set_preamp)
         self.auto_btn = QPushButton(tr("Auto"))
-        self.auto_btn.setToolTip(tr("Lower the preamp by the EQ's largest boost so the output can't clip"))
+        self.auto_btn.setToolTip(tr("Set the preamp to offset the EQ's maximum boost so the output can't clip"))
         self.auto_btn.clicked.connect(self._auto_preamp)
         self.clip_label = QLabel()
 
@@ -61,7 +61,7 @@ class MainWindow(QMainWindow):
         self.analyzer = SpectrumAnalyzer(self)
         self.spec_btn = QPushButton(tr("Spectrum"), checkable=True)
         if HAVE_NUMPY:
-            self.spec_btn.setToolTip(tr("Show the spectrum of the sound after the EQ (captured only while this window is visible)"))
+            self.spec_btn.setToolTip(tr("Show the post-EQ spectrum behind the curve (captured only while this window is visible)"))
             self.spec_btn.setChecked(self.settings.value("spectrum", True, type=bool))
         else:
             self.spec_btn.setEnabled(False)
@@ -73,7 +73,7 @@ class MainWindow(QMainWindow):
         lang_menu = QMenu(lang_btn)
         group = QActionGroup(lang_menu)
         saved = self.settings.value("language", "auto")
-        for code, label in [("auto", tr("Automatic (system)"))] + list(i18n.LANGUAGES.items()):
+        for code, label in [("auto", tr("System default"))] + list(i18n.LANGUAGES.items()):
             act = lang_menu.addAction(label)
             act.setCheckable(True)
             act.setChecked(code == saved)
@@ -225,7 +225,7 @@ class MainWindow(QMainWindow):
         try:
             st = model.load_preset(name)
         except (OSError, ValueError, TypeError) as e:
-            QMessageBox.warning(self, "Tofu EQ", tr("Failed to load: {err}", err=e))
+            QMessageBox.warning(self, "Tofu EQ", tr("Failed to load preset: {err}", err=e))
             return
         st.bypass = self.state.bypass
         self.state = st

@@ -137,7 +137,7 @@ numpy が入っていません。インストーラーを再実行するか、�
 
 ## 翻訳
 
-UI の文字列は [`tofu_eq/i18n.py`](tofu_eq/i18n.py) にあります（原文は英語）。言語を追加するにはそこに表を足すだけで、`python -m unittest` を実行すれば訳し漏れを教えてくれます。言語を固定するには `TOFU_EQ_LANG=ja tofu-eq` のように起動します。
+UI の文字列は [`tofu_eq/i18n.py`](tofu_eq/i18n.py) にあります（原文は英語）。言語を追加するにはそこに表を足すだけで、`python -m unittest discover -s tests` を実行すれば訳し漏れを教えてくれます。言語を固定するには `TOFU_EQ_LANG=ja tofu-eq` のように起動します。
 
 ## ライセンス
 
