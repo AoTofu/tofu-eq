@@ -16,11 +16,11 @@ _TABLES = {
         "Save…": "保存…",
         "Delete": "削除",
         "Flat": "フラット",
-        "Reset all band gains and the preamp to 0 dB": "全バンドのゲインを 0 dB にする",
+        "Reset all band gains and the preamp to 0 dB": "全バンドのゲインとプリアンプを 0 dB に戻す",
         "Preamp": "プリアンプ",
         "Auto": "自動",
         "Set the preamp to offset the EQ's maximum boost so the output can't clip":
-            "クリップしないよう、EQ の最大ブースト分だけプリアンプを下げる",
+            "EQ の最大ブースト分を打ち消すようにプリアンプを設定し、クリップを防ぐ",
         "⚠ +{db} dB may clip": "⚠ +{db} dB クリップの恐れ",
         "Spectrum": "スペクトラム",
         "Show the post-EQ spectrum behind the curve (captured only while this window is visible)":
@@ -29,7 +29,7 @@ _TABLES = {
         "Bypass": "バイパス",
         "Temporarily disable the EQ (Ctrl+B)": "EQ を一時的に無効化（Ctrl+B）",
         "Language": "言語",
-        "System default": "自動（システム）",
+        "System default": "システムに合わせる",
         # graph
         "Drag: frequency/gain    Wheel: Q    Double-click: add band    Right-click: type/delete":
             "ドラッグ: 周波数/ゲイン　ホイール: Q　ダブルクリック: バンド追加　右クリック: 種類/削除",
@@ -52,7 +52,7 @@ _TABLES = {
         "Notch": "ノッチ",
         "All-pass": "オールパス",
         # presets
-        "Failed to load preset: {err}": "読み込みに失敗しました: {err}",
+        "Failed to load preset: {err}": "プリセットを読み込めませんでした: {err}",
         "Save preset": "プリセットを保存",
         "Name:": "名前:",
         "Delete preset “{name}”?": "プリセット「{name}」を削除しますか？",
@@ -60,7 +60,7 @@ _TABLES = {
         "EQ running": "EQ 動作中",
         "EQ stopped": "EQ 停止中",
         "The EQ stays on after you close this window": "GUI を閉じても EQ は有効のままです",
-        "Failed to start the EQ service: {err}": "サービスの起動に失敗しました: {err}",
+        "Failed to start the EQ service: {err}": "EQ サービスを起動できませんでした: {err}",
     },
     "zh_CN": {
         "Presets": "预设",
