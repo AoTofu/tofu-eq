@@ -33,6 +33,11 @@ ok()   { printf '  %s✓%s %s\n' "$GRN" "$RST" "$*"; }
 warn() { printf '  %s!%s %s\n' "$YEL" "$RST" "$*"; }
 die()  { printf '%serror:%s %s\n' "$RED" "$RST" "$*" >&2; exit 1; }
 have() { command -v "$1" >/dev/null 2>&1; }
+refresh_menus() {  # best effort; not every desktop ships these tools
+    if have update-desktop-database; then update-desktop-database "$APPS_DIR" >/dev/null 2>&1 || :; fi
+    if have gtk-update-icon-cache; then gtk-update-icon-cache -q -t "$DATA_HOME/icons/hicolor" >/dev/null 2>&1 || :; fi
+    if have kbuildsycoca6; then kbuildsycoca6 >/dev/null 2>&1 || :; fi
+}
 
 MODE=install DEPS=auto
 for arg in "$@"; do
@@ -56,7 +61,7 @@ uninstall() {
     fi
     rm -rf "$PREFIX"
     rm -f "$BIN_DIR/tofu-eq" "$APPS_DIR/tofu-eq.desktop" "$ICON_DIR/tofu-eq.svg"
-    have update-desktop-database && update-desktop-database "$APPS_DIR" >/dev/null 2>&1 || true
+    refresh_menus
     ok "app, launcher, menu entry and background service removed"
     if [ "$MODE" = purge ]; then
         rm -rf "$CONFIG_HOME/tofu-eq"
@@ -118,6 +123,7 @@ distro_install() {
             fi ;;
         *" suse "*|*" opensuse "*)
             cmd="sudo zypper --non-interactive install python3-PySide6 python3-numpy" ;;
+        *) ;;
     esac
     [ -n "$cmd" ] || return 1
     printf '  %sRunning: %s%s\n' "$DIM" "$cmd" "$RST"
@@ -157,7 +163,10 @@ fi
 # ---------------------------------------------------------------- fetch app
 step "Installing Tofu EQ"
 SRC=""
-HERE="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" 2>/dev/null && pwd || true)"
+HERE=""
+if src_dir="$(dirname "${BASH_SOURCE[0]:-$0}")" && [ -d "$src_dir" ]; then
+    HERE="$(cd "$src_dir" && pwd)"
+fi
 if [ -n "$HERE" ] && [ -f "$HERE/tofu_eq/__main__.py" ]; then
     SRC="$HERE"   # running from a git checkout
 else
@@ -186,9 +195,7 @@ EOF
 chmod +x "$BIN_DIR/tofu-eq"
 sed "s|^Exec=.*|Exec=$BIN_DIR/tofu-eq|" "$SRC/data/tofu-eq.desktop" > "$APPS_DIR/tofu-eq.desktop"
 cp "$SRC/data/tofu-eq.svg" "$ICON_DIR/tofu-eq.svg"
-have update-desktop-database && update-desktop-database "$APPS_DIR" >/dev/null 2>&1 || true
-have gtk-update-icon-cache && gtk-update-icon-cache -q -t "$DATA_HOME/icons/hicolor" >/dev/null 2>&1 || true
-have kbuildsycoca6 && kbuildsycoca6 >/dev/null 2>&1 || true
+refresh_menus
 ok "launcher: $BIN_DIR/tofu-eq"
 ok "app menu entry: Tofu EQ"
 
