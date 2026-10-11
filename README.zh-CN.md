@@ -24,18 +24,18 @@
 
 </div>
 
-## ✨ 亮点
+## 亮点
 
-- **🪶 真正轻量**：所有 DSP 都在 PipeWire 自带的 `filter-chain` 中以普通 biquad 滤波器运行。没有 Python 音频线程，没有额外重采样，也不需要常驻 GUI。后台 EQ 只是一个约 12 MB 的进程。
-- **🎚️ 真正的参数均衡**：峰值、低架/高架、低通/高通、带通、陷波和全通。最多 32 个频段，频率、增益、Q 值均可自由设置。
-- **⚡ 零中断实时编辑**：拖动控制点即可立即听到效果。即使切换频段的滤波器类型也不会产生爆音（系数是原地替换的）。
-- **🔌 始终生效，适用于任何输出**：自动插入到当前默认输出（扬声器、耳机、HDMI…）之前，切换输出时也会自动跟随。登录后即生效，无需打开窗口。
-- **📈 实时频谱**：在背景中淡淡地显示你实际听到的声音（EQ 之后），仅在窗口可见时采集。
-- **🛟 防削波**：当总增益可能导致削波时曲线会变红，点击 **自动** 即可一键设置安全的前置增益。
-- **💾 预设**：以简单的 JSON 文件保存、加载和分享。
-- **🌍 English · 日本語 · 简体中文**：自动跟随系统语言，也可以在菜单中切换。
+- **真正轻量**：所有 DSP 都在 PipeWire 自带的 `filter-chain` 中以普通 biquad 滤波器运行。没有 Python 音频线程，没有额外重采样，也不需要常驻 GUI。后台 EQ 只是一个约 12 MB 的进程。
+- **真正的参数均衡**：峰值、低架/高架、低通/高通、带通、陷波和全通。最多 32 个频段，频率、增益、Q 值均可自由设置。
+- **零中断实时编辑**：拖动控制点即可立即听到效果。即使切换频段的滤波器类型也不会产生爆音（系数是原地替换的）。
+- **始终生效，适用于任何输出**：自动插入到当前默认输出（扬声器、耳机、HDMI…）之前，切换输出时也会自动跟随。登录后即生效，无需打开窗口。
+- **实时频谱**：在背景中淡淡地显示你实际听到的声音（EQ 之后），仅在窗口可见时采集。
+- **防削波**：当总增益可能导致削波时曲线会变红，点击 **自动** 即可一键设置安全的前置增益。
+- **预设**：以简单的 JSON 文件保存、加载和分享。
+- **English · 日本語 · 简体中文**：自动跟随系统语言，也可以在菜单中切换。
 
-## 🚀 安装
+## 安装
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/AoTofu/tofu-eq/main/install.sh | bash
@@ -74,7 +74,7 @@ git clone https://github.com/AoTofu/tofu-eq && cd tofu-eq && ./install.sh
 
 </details>
 
-## 🎛️ 使用方法
+## 使用方法
 
 | 操作 | 方式 |
 |---|---|
@@ -87,13 +87,13 @@ git clone https://github.com/AoTofu/tofu-eq && cd tofu-eq && ./install.sh
 
 关闭窗口不会停止 EQ：它会继续在后台运行，重启后也一样。
 
-## ⚙️ 工作原理
+## 工作原理
 
 ```mermaid
 flowchart LR
-    apps["🎵 应用"] --> sink
+    apps["应用"] --> sink
     subgraph pw["PipeWire"]
-        sink["Tofu EQ<br><sub>filter-chain · smart filter</sub>"] -->|"前置增益 → N × bq_raw"| dev["🔊 默认输出"]
+        sink["Tofu EQ<br><sub>filter-chain · smart filter</sub>"] -->|"前置增益 → N × bq_raw"| dev["默认输出"]
     end
     gui["Tofu EQ 窗口"] -. "pw-cli set-param<br>（实时系数）" .-> sink
     dev -. "monitor → pw-record<br>（仅窗口可见时）" .-> gui
@@ -106,14 +106,14 @@ flowchart LR
 
 文件位置：设置和预设在 `~/.config/tofu-eq/`，服务在 `~/.config/systemd/user/tofu-eq-filter.service`。
 
-## 🗑️ 卸载
+## 卸载
 
 ```bash
 ~/.local/share/tofu-eq/install.sh --uninstall   # 保留预设
 ~/.local/share/tofu-eq/install.sh --purge       # 全部删除
 ```
 
-## ❓ 常见问题
+## 常见问题
 
 <details>
 <summary><b>EQ 没有效果</b></summary>
@@ -135,10 +135,10 @@ flowchart LR
 缺少 numpy。重新运行安装脚本，或安装发行版的 `python3-numpy`。
 </details>
 
-## 🌍 翻译
+## 翻译
 
 界面文字位于 [`tofu_eq/i18n.py`](tofu_eq/i18n.py)（以英文为原文）。添加新语言只需在其中新增一张表，运行 `python -m unittest` 即可检查是否有遗漏。可用 `TOFU_EQ_LANG=zh_CN tofu-eq` 强制指定语言。
 
-## 📄 许可证
+## 许可证
 
 [MIT](LICENSE) © AoTofu

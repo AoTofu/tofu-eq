@@ -24,18 +24,18 @@ Like Equalizer APO, for Linux: one EQ for every app, tweaked live, gone from you
 
 </div>
 
-## ✨ Highlights
+## Highlights
 
-- **🪶 Truly lightweight**: all DSP runs inside PipeWire's own `filter-chain` as plain biquads. No Python audio thread, no extra resampling, no always-on GUI. The background EQ is a ~12 MB process.
-- **🎚️ Real parametric EQ**: peak, low/high shelf, low/high pass, band pass, notch and all-pass. Up to 32 bands with free frequency, gain and Q.
-- **⚡ Zero-dropout live editing**: drag a handle and you hear it instantly. Even switching a band's filter type is glitch-free (coefficients are swapped in place).
-- **🔌 Always on, everywhere**: inserts itself in front of whatever output is your default (speakers, headphones, HDMI…) and follows you when you switch. Starts at login, no window needed.
-- **📈 Live spectrum**: a subtle analyzer of what you actually hear (post-EQ), captured only while the window is visible.
-- **🛟 Clip guard**: the curve turns red when the total gain could clip, and **Auto** sets a safe preamp in one click.
-- **💾 Presets**: save, load and share simple JSON files.
-- **🌍 English · 日本語 · 简体中文**: follows your system language, or switch from the menu.
+- **Truly lightweight**: all DSP runs inside PipeWire's own `filter-chain` as plain biquads. No Python audio thread, no extra resampling, no always-on GUI. The background EQ is a ~12 MB process.
+- **Real parametric EQ**: peak, low/high shelf, low/high pass, band pass, notch and all-pass. Up to 32 bands with free frequency, gain and Q.
+- **Zero-dropout live editing**: drag a handle and you hear it instantly. Even switching a band's filter type is glitch-free (coefficients are swapped in place).
+- **Always on, everywhere**: inserts itself in front of whatever output is your default (speakers, headphones, HDMI…) and follows you when you switch. Starts at login, no window needed.
+- **Live spectrum**: a subtle analyzer of what you actually hear (post-EQ), captured only while the window is visible.
+- **Clip guard**: the curve turns red when the total gain could clip, and **Auto** sets a safe preamp in one click.
+- **Presets**: save, load and share simple JSON files.
+- **English · 日本語 · 简体中文**: follows your system language, or switch from the menu.
 
-## 🚀 Install
+## Install
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/AoTofu/tofu-eq/main/install.sh | bash
@@ -74,7 +74,7 @@ git clone https://github.com/AoTofu/tofu-eq && cd tofu-eq && ./install.sh
 
 </details>
 
-## 🎛️ Using it
+## Using it
 
 | Action | How |
 |---|---|
@@ -87,13 +87,13 @@ git clone https://github.com/AoTofu/tofu-eq && cd tofu-eq && ./install.sh
 
 Closing the window doesn't stop the EQ: it keeps running in the background, also after a reboot.
 
-## ⚙️ How it works
+## How it works
 
 ```mermaid
 flowchart LR
-    apps["🎵 Apps"] --> sink
+    apps["Apps"] --> sink
     subgraph pw["PipeWire"]
-        sink["Tofu EQ<br><sub>filter-chain · smart filter</sub>"] -->|"preamp → N × bq_raw"| dev["🔊 Default output"]
+        sink["Tofu EQ<br><sub>filter-chain · smart filter</sub>"] -->|"preamp → N × bq_raw"| dev["Default output"]
     end
     gui["Tofu EQ window"] -. "pw-cli set-param<br>(live coefficients)" .-> sink
     dev -. "monitor → pw-record<br>(only while visible)" .-> gui
@@ -106,14 +106,14 @@ flowchart LR
 
 Files: settings and presets in `~/.config/tofu-eq/`, the service in `~/.config/systemd/user/tofu-eq-filter.service`.
 
-## 🗑️ Uninstall
+## Uninstall
 
 ```bash
 ~/.local/share/tofu-eq/install.sh --uninstall   # keeps your presets
 ~/.local/share/tofu-eq/install.sh --purge       # removes everything
 ```
 
-## ❓ Troubleshooting
+## Troubleshooting
 
 <details>
 <summary><b>The EQ has no effect</b></summary>
@@ -135,10 +135,10 @@ Boosting can push the signal above 0 dBFS. Press **Auto** (or lower the preamp u
 numpy is missing. Re-run the installer, or install your distro's `python3-numpy`.
 </details>
 
-## 🌍 Translations
+## Translations
 
 UI strings live in [`tofu_eq/i18n.py`](tofu_eq/i18n.py) (English is the source text). To add a language, add a table there, and `python -m unittest` will tell you if any string is missing. Force a language with `TOFU_EQ_LANG=ja tofu-eq`.
 
-## 📄 License
+## License
 
 [MIT](LICENSE) © AoTofu
