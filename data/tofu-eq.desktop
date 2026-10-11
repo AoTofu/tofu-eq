@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Name=Tofu EQ
+GenericName=Parametric Equalizer
+GenericName[ja]=パラメトリックイコライザー
+GenericName[zh_CN]=参数均衡器
+Comment=Lightweight system-wide parametric EQ for PipeWire
+Comment[ja]=PipeWire 全体にかかる軽量パラメトリック EQ
+Comment[zh_CN]=适用于 PipeWire 的轻量级全局参数均衡器
+Exec=tofu-eq
+Icon=tofu-eq
+Terminal=false
+Categories=AudioVideo;Audio;Mixer;
+Keywords=equalizer;eq;pipewire;audio;イコライザー;均衡器;
+StartupWMClass=tofu-eq
