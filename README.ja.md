@@ -135,9 +135,19 @@ flowchart LR
 numpy が入っていません。インストーラーを再実行するか、ディストリの `python3-numpy` を入れてください。
 </details>
 
+## 開発
+
+[uv](https://docs.astral.sh/uv/getting-started/installation/) と Make をインストールし、リポジトリのルートで以下を実行します。
+
+```sh
+uv sync --locked
+uv run --locked tofu-eq
+make test
+```
+
 ## 翻訳
 
-UI の文字列は [`tofu_eq/i18n.py`](tofu_eq/i18n.py) にあります（原文は英語）。言語を追加するにはそこに表を足すだけで、`python -m unittest discover -s tests` を実行すれば訳し漏れを教えてくれます。言語を固定するには `TOFU_EQ_LANG=ja tofu-eq` のように起動します。
+UI の文字列は [`tofu_eq/i18n.py`](tofu_eq/i18n.py) にあります（原文は英語）。言語を追加するにはそこに表を足し、上記のテストで訳し漏れを確認します。言語を固定するには `TOFU_EQ_LANG=ja tofu-eq` のように起動します。
 
 ## ライセンス
 
