@@ -135,9 +135,19 @@ Boosting can push the signal above 0 dBFS. Press **Auto** (or lower the preamp u
 numpy is missing. Re-run the installer, or install your distro's `python3-numpy`.
 </details>
 
+## Development
+
+With [uv](https://docs.astral.sh/uv/getting-started/installation/) and Make installed, run these commands from the checkout:
+
+```sh
+uv sync --locked
+uv run --locked tofu-eq
+make test
+```
+
 ## Translations
 
-UI strings live in [`tofu_eq/i18n.py`](tofu_eq/i18n.py) (English is the source text). To add a language, add a table there, and `python -m unittest discover -s tests` will tell you if any string is missing. Force a language with `TOFU_EQ_LANG=ja tofu-eq`.
+UI strings live in [`tofu_eq/i18n.py`](tofu_eq/i18n.py) (English is the source text). To add a language, add a table there and run the tests above to check for missing strings. Force a language with `TOFU_EQ_LANG=ja tofu-eq`.
 
 ## License
 
